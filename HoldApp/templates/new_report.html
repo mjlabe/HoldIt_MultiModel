@@ -1,0 +1,33 @@
+{#{% extends 'base.html' %}#}
+
+{% load staticfiles %}
+
+{% block content %}
+<body>
+
+    <div class="content container">
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="contentContainer">
+
+                    <h1>New Post</h1>
+                    <form method="POST" class="post-form">{% csrf_token %}
+                        {{ report_form }}
+                        {{ data_form }}
+                        <button type="submit" class="save btn btn-default">Save</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+
+{% endblock %}
