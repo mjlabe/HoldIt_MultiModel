@@ -7,26 +7,22 @@
 {% block content %}
 <body>
 <!-- Contact Container -->
-<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
-  <div class="w3-row">
-    <div class="w3-col m5">
-        <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar"></span></div>
-            <div class="w3-col m7">
-                <form method="POST" class="w3-container w3-card-4 w3-padding-16 w3-white">{% csrf_token %}
-                    <div class="w3-section">
-                        <label>Title</label>
-                        {{ report_form.title|add_class:'w3-input' }}
-                    </div>
-                    <div class="w3-section">
-                        <label>Data</label>
-                        {{ data_form.data|add_class:'w3-input' }}
-                    </div>
-                    <button type="submit" class="w3-button w3-right w3-theme">Save</button>
-                </form>
-            </div>
+    <div class="w3-container w3-padding-64 w3-theme-l5" id="report">
+    <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar"></span></div>
+        <div class="w3-col m7">
+            <form method="POST" class="w3-container w3-card-4 w3-padding-16 w3-white">{% csrf_token %}
+                <div class="w3-section">
+                    <label>Title</label>
+                    {{ report_form.title|add_class:'w3-input' }}
+                </div>
+                <div class="w3-section">
+                    <label>Data</label>
+                    {{ data_form.data|add_class:'w3-input' }}
+                </div>
+                <button type="submit" class="w3-button w3-right w3-theme">Save</button>
+            </form>
         </div>
-   </div>
-</div>
+    </div>
 </body>
 
 
