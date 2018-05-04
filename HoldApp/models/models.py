@@ -7,3 +7,4 @@ class Report(models.Model):
     created_date = models.DateTimeField(default=timezone.now())
     mod_date = models.DateTimeField(blank=True, null=True)
 
+

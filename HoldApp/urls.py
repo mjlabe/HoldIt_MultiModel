@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^$', views.header, name='header'),
     url(r'^$', views.footer, name='footer'),
     path('accounts/', include('django.contrib.auth.urls')),
+    url(r'^registration/signup/$', views.signup, name='signup'),
 
 ]
