@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'HoldApp',
+    'Middleware',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'Middleware.security_middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'HoldIt.urls'
@@ -124,3 +126,10 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+LOGIN_URL = '/accounts/login/'
+
+LOGIN_EXEMPT_URLS = (
+    r'^account/logout/$',
+    r'^account/signup/$',
+)
