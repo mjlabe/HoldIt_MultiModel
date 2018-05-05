@@ -21,10 +21,10 @@ def new_report(request):
             data.report = report
             data.save()
 
-            return redirect('index')
+            return redirect('report_list')
 
     else:
         report_form = ReportForm()
         data_form = DataForm()
 
-    return render(request, "new_report.html", {'report_form': report_form, 'data_form': data_form, })
+    return render(request, "contributor/new_report.html", {'report_form': report_form, 'data_form': data_form, })

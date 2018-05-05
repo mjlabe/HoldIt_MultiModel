@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% load staticfiles %}
 
@@ -29,16 +29,7 @@
     <div style="height: 50px"></div>
       <form method="post" class="w3-container w3-card-4 w3-display-top w3-padding-16 w3-white">
       {% csrf_token %}
-                <h2 style="margin-top: 1em" align="center";  >New Entry</h2>
-                <div class="w3-section">
-                    <label>Title</label>
-                    {{ report_form.title|add_class:'w3-input' }}
-                </div>
-                <div class="w3-section">
-                    <label>Data</label>
-                    {{ data_form.data|add_class:'w3-input' }}
-                </div>
-                <button type="submit" class="w3-button w3-right w3-theme">Save</button>
+                <h2 style="margin-top: 1em"   >{{ report.title}}</h2>
             </form>
         </div>
 

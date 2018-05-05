@@ -1,5 +1,5 @@
 from django import forms
-from HoldApp.models import Report, Data
+from HoldApp.models import Report, Data, GroupRequest
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -26,3 +26,9 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
+
+class GroupChoiceForm(forms.ModelForm):
+    class Meta:
+        model = GroupRequest
+        fields = ('group', )
