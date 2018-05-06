@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Report(models.Model):
     title = models.CharField(max_length=100)
+    summary = models.TextField(max_length=100000, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now())
     mod_date = models.DateTimeField(blank=True, null=True)
 

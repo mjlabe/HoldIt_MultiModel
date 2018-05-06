@@ -8,7 +8,7 @@ class ReportForm(forms.ModelForm):
     # title = forms.CharField(label='Title')
     class Meta:
         model = Report
-        fields = ('title', )
+        fields = ('title', 'summary', )
 
 
 class DataForm(forms.ModelForm):

@@ -14,5 +14,4 @@ urlpatterns = [
     url(r'^report/$', views_users.report_list, name='report_list'),
     url(r'^report/(?P<pk>\d+)/$', views_users.report_detail, name='report_detail'),
 
-
 ]

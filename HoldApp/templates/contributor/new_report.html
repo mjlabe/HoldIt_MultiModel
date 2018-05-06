@@ -25,18 +25,22 @@
 
 <!-- Contact Container -->
 {#TODO: this neeeds to be changes from a constant height#}
-<div style="height: 500px" class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
     <div style="height: 50px"></div>
       <form method="post" class="w3-container w3-card-4 w3-display-top w3-padding-16 w3-white">
       {% csrf_token %}
-                <h2 style="margin-top: 1em" align="center";  >New Entry</h2>
+                <h2 style="margin-top: 1em" align="center"  >New Entry</h2>
                 <div class="w3-section">
                     <label>Title</label>
                     {{ report_form.title|add_class:'w3-input' }}
                 </div>
                 <div class="w3-section">
+                    <label>Summary</label>
+                    {{ report_form.summary|add_class:'w3-input' }}
+                </div>
+                <div class="w3-section">
                     <label>Data</label>
-                    {{ data_form.data|add_class:'w3-input' }}
+                    {{ data_form.data |add_class:'w3-input'}}
                 </div>
                 <button type="submit" class="w3-button w3-right w3-theme">Save</button>
             </form>
