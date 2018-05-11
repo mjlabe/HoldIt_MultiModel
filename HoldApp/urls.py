@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from HoldApp.views import views_public, views_users, views_contrib
+from HoldApp.views import views_public, views_user, views_contrib
 from django.urls import path, include
 
 
@@ -11,7 +11,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     url(r'^registration/signup/$', views_public.signup, name='signup'),
     url(r'^registration/success/$', views_public.success, name='success'),
-    url(r'^report/$', views_users.report_list, name='report_list'),
-    url(r'^report/(?P<pk>\d+)/$', views_users.report_detail, name='report_detail'),
+    url(r'^report/$', views_user.report_list, name='report_list'),
+    url(r'^report/(?P<pk>\d+)/$', views_user.report_detail, name='report_detail'),
 
 ]

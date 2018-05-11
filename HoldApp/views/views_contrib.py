@@ -4,12 +4,22 @@ from django.contrib.auth.decorators import user_passes_test
 
 
 def is_contributor(user):
-    return user.groups.filter(name='Contributor').exists()
+    """Verify User is a Contributor"""
+
+    return user.groups.filter(name='Contributor').exists() | user.groups.filter(name='Worker').exists() | \
+           user.groups.filter(name='Admin').exists()
 
 
-#TODO: use middleware instead of decorators
+# TODO: use middleware instead of decorators
 @user_passes_test(is_contributor)
 def new_report(request):
+    """Display the New Report form.
+
+    This view combines the Report model and the corresponding data model. This needs to be made into an abstract class
+    that can be implemented by ths specific views of different case types.
+    """
+
+    # TODO: make this an abstract class to handle every type of report
     if request.method == "POST":
         report_form = ReportForm(request.POST)
         data_form = DataForm(request.POST)

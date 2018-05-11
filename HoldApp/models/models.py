@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Report(models.Model):
+    """This model common to every type of device. It includes common things like, title, summary, device type, etc."""
     title = models.CharField(max_length=100)
     summary = models.TextField(max_length=100000, blank=True, null=True)
     created_date = models.DateTimeField(default=timezone.now())
@@ -11,6 +12,9 @@ class Report(models.Model):
 
 
 class GroupRequest(models.Model):
+    """This model associates a "Group Request" (access privilege request) to the User model during signup. The user is
+    not added to the group (and therefore has no access privileges) until an Administrator assigns them to that Group."""
+
     user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
     GROUP_CHOICES = (
         ('U', 'User'),
