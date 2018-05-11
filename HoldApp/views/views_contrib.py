@@ -1,4 +1,4 @@
-from HoldApp.forms import ReportForm, DataForm
+from HoldApp.forms import ReportForm, DataForm, DForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import user_passes_test
 
@@ -38,3 +38,19 @@ def new_report(request):
         data_form = DataForm()
 
     return render(request, "contributor/new_report.html", {'report_form': report_form, 'data_form': data_form, })
+
+
+@user_passes_test(is_contributor)
+def new_dform(request):
+    if request.method == "POST":
+        report_form = DForm(request.POST)
+
+        if report_form.is_valid():
+            report_form.save()
+
+            return redirect('report_list')
+
+    else:
+        report_form = DForm()
+
+    return render(request, "contributor/new_dreport.html", {'report_form': report_form,})

@@ -1,5 +1,5 @@
 from django import forms
-from HoldApp.models import Report, Data, GroupRequest
+from HoldApp.models import Report, Data, DReport, GroupRequest
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -32,3 +32,9 @@ class GroupChoiceForm(forms.ModelForm):
     class Meta:
         model = GroupRequest
         fields = ('group', )
+
+
+class DForm(forms.ModelForm):
+    class Meta:
+        model = DReport
+        fields = '__all__'
