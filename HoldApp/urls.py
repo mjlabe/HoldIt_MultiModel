@@ -5,6 +5,7 @@ from django.urls import path, include
 
 urlpatterns = [
     url(r'^report/new/$', views_contrib.new_report, name='new_report'),
+    url(r'^report/newD/$', views_contrib.new_Dreport, name='new_Dreport'),
     url(r'^$', views_public.index, name='index'),
     url(r'^$', views_public.header, name='header'),
     url(r'^$', views_public.footer, name='footer'),

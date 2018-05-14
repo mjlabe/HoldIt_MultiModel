@@ -1,5 +1,5 @@
 from django import forms
-from HoldApp.models import Report, Data, GroupRequest
+from HoldApp.models import Report, HModel, GroupRequest, DModel, DModelF, DModelD
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -11,11 +11,23 @@ class ReportForm(forms.ModelForm):
         fields = ('title', 'summary', )
 
 
-class DataForm(forms.ModelForm):
+class HForm(forms.ModelForm):
     # data = forms.CharField(label='Data')
     class Meta:
-        model = Data
+        model = HModel
         fields = ('data', )
+
+
+class DFormF(forms.ModelForm):
+    class Meta:
+        model = DModelF
+        fields = ('fval', )
+
+
+class DFormD(forms.ModelForm):
+    class Meta:
+        model = DModelD
+        fields = ('dval', )
 
 
 class SignUpForm(UserCreationForm):
