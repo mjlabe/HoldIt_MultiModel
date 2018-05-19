@@ -28,10 +28,9 @@
 <div style="height: 500px" class="w3-container w3-padding-64 w3-theme-l5" id="contact">
     <div style="height: 50px"></div>
       <form method="post" class="w3-container w3-card-4 w3-display-top w3-padding-16 w3-white">
+      <a class="btn btn-default" href="{% url 'case_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
       {% csrf_token %}
           <label><b>Title</b></label>
-          <a class="btn btn-default" href="{% url 'case_edit' pk=case.pk %}"><span class="fa fa-pencil-square-o" style="font-size:2em; float: right"></span></a>
-
                 <div class="w3-section">
                     {{ case.title}}
                 </div>

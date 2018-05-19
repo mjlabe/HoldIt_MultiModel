@@ -1,21 +1,31 @@
 from django import forms
-from HoldApp.models import Report, HModel, GroupRequest, DModel, DModelF, DModelD
+from HoldApp.models import Report, Case, HModelData, HModelStuff, GroupRequest, DModelF, DModelD
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 
+class CaseForm(forms.ModelForm):
+    class Meta:
+        model = Case
+        fields = ('title', 'summary')
+
+
 class ReportForm(forms.ModelForm):
-    # title = forms.CharField(label='Title')
     class Meta:
         model = Report
-        fields = ('title', 'summary', )
+        fields = ('reporttitle', 'pdf', )
 
 
-class HForm(forms.ModelForm):
-    # data = forms.CharField(label='Data')
+class HFormData(forms.ModelForm):
     class Meta:
-        model = HModel
-        fields = ('data', )
+        model = HModelData
+        fields = ('data1', 'data2', 'data3', )
+
+
+class HFormStuff(forms.ModelForm):
+    class Meta:
+        model = HModelStuff
+        fields = ('stuff1', 'stuff2', 'stuff3', )
 
 
 class DFormF(forms.ModelForm):

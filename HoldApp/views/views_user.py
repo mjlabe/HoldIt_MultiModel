@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from HoldApp.models.models import Report
+from HoldApp.models.models import Report, Case
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
@@ -15,19 +15,19 @@ def is_user(user):
 
 # TODO: limit the number of reports requested
 @user_passes_test(is_user)
-def report_list(request):
+def case_list(request):
     """Display a list of Reports sorted by newest to oldest"""
 
-    reports = Report.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
-    return render(request, 'user/report_list.html', {'reports': reports})
+    cases = Case.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
+    return render(request, 'user/report_list.html', {'cases': cases})
 
 
 @user_passes_test(is_user)
-def report_detail(request, pk):
+def case_detail(request, pk):
     """Display the detailed view for a Report"""
 
-    report = get_object_or_404(Report, pk=pk)
-    return render(request, 'user/report_detail.html', {'report': report})
+    case = get_object_or_404(Case, pk=pk)
+    return render(request, 'user/report_detail.html', {'case': case})
 
 
 # class ReportDetail(View):
