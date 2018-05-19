@@ -223,3 +223,6 @@ db.sqlite3
 .idea/
 env/
 venv/
+'.idea' 
+.idea
+venv
