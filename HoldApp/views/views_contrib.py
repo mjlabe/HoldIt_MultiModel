@@ -1,7 +1,7 @@
 from HoldApp.forms import ReportForm, DFormD, DFormF, HFormData, HFormStuff, CaseForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
-from HoldApp.models import DModel, DModelF, DModelD, Report, HModelData, HModelStuff, CaseD, CaseH
+from HoldApp.models import DModel, DModelF, DModelD, Report, HModelData, HModelStuff, CaseD, CaseH, HModel, Case
 from django.utils import timezone
 
 
@@ -23,30 +23,73 @@ def new_case(request):
 
     # TODO: make this an abstract class to handle every type of report
     if request.method == "POST":
+        case_form = CaseForm(request.POST)
         report_form = ReportForm(request.POST)
         data_form = HFormData(request.POST)
         stuff_form = HFormStuff(request.POST)
 
         if report_form.is_valid() and data_form.is_valid() and stuff_form.is_valid():
+            case = case_form.save()
             report = report_form.save()
-            data = data_form.save(commit=False)
 
-            data.report = report
-            data.save()
+            hmodeldata, fcreated = HModelData.objects.get_or_create(**data_form.cleaned_data)
+            hmodelstuff, dcreated = HModelStuff.objects.get_or_create(**stuff_form.cleaned_data)
+            hmodel, dmodelcreated = HModel.objects.get_or_create(data=hmodeldata, stuff=hmodelstuff)
 
-            return redirect('report_list')
+            CaseH.objects.create(report=report, case=case, hmodel=hmodel)
+
+            return redirect('case_list')
 
     else:
+        case_form = CaseForm()
         report_form = ReportForm()
         data_form = HFormData()
         stuff_form = HFormStuff()
 
-    return render(request, "contributor/new_report.html", {'report_form': report_form, 'data_form': data_form,
-                                                           'stuff_form': stuff_form, })
+    return render(request, "contributor/new_report.html", {'case_form': case_form, 'report_form': report_form,
+                                                           'data_form': data_form, 'stuff_form': stuff_form, })
+
+
+# TODO: ERROR! UNIQUE constraint failed
+# TODO: if statement to load specific case type
+@user_passes_test(is_contributor)
+def case_edit(request, pk):
+    case = get_object_or_404(Case, pk=pk)
+    report = CaseH.objects.get(case=case).report
+    data = CaseH.objects.get(case=case).hmodel.data
+    stuff = CaseH.objects.get(case=case).hmodel.stuff
+
+    if request.method == "POST":
+        case_form = CaseForm(request.POST, instance=case)
+        report_form = ReportForm(request.POST, instance=report)
+        data_form = HFormData(request.POST, instance=data)
+        stuff_form = HFormStuff(request.POST, instance=stuff)
+
+        if case_form.is_valid() and report_form.is_valid() and data_form.is_valid() and stuff_form.is_valid():
+            case.mod_date = timezone.now
+            Case.objects.update(**case_form.cleaned_data)
+            Report.objects.update(**report_form.cleaned_data)
+
+            hmodeldata, fcreated = HModelData.objects.get_or_create(**data_form.cleaned_data)
+            hmodelstuff, dcreated = HModelStuff.objects.get_or_create(**stuff_form.cleaned_data)
+            hmodel, dmodelcreated = HModel.objects.get_or_create(data=hmodeldata, stuff=hmodelstuff)
+
+            CaseH.objects.update(report=report, case=case, hmodel=hmodel)
+
+            return redirect('case_list')
+
+    else:
+        case_form = CaseForm(instance=case)
+        report_form = ReportForm(instance=report)
+        data_form = HFormData(instance=data)
+        stuff_form = HFormStuff(instance=stuff)
+
+    return render(request, "contributor/new_report.html", {'case_form': case_form, 'report_form': report_form,
+                                                              'data_form': data_form, 'stuff_form': stuff_form})
 
 
 @user_passes_test(is_contributor)
-def case_edit(request, pk):
+def caseD_edit(request, pk):
     """Display the New Report form.
 
     This view combines the Report model and the corresponding data model. This needs to be made into an abstract class
@@ -108,7 +151,7 @@ def new_Dcase(request):
 
             CaseD.objects.create(report=report, case=case, dmodel=dmodel)
 
-            return redirect('report_list')
+            return redirect('case_list')
 
     else:
         case_form = CaseForm()
